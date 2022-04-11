@@ -27,6 +27,9 @@ import mars.mips.instructions.BasicInstructionFormat;
    protected int max = 0;
    private JTextField maxField;
    
+   private boolean startFlag = false;
+   private JButton start;
+   
    private boolean reset = false;  
    
    /**
@@ -90,27 +93,39 @@ import mars.mips.instructions.BasicInstructionFormat;
 		maxField = new JTextField("0", 10);
 		maxField.setEditable(true);
 		
+		start = new JButton("Start counter");
+		start.addActionListener(
+			new ActionListener() {
+		    	public void actionPerformed(ActionEvent e) {
+		        	startFlag = true;
+		    	}
+		    });
+		
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.LINE_START;
 		c.gridheight = c.gridwidth = 1;
 		c.gridx = 3;
 		c.gridy = 1;
-		c.insets = new Insets(0, 0, 17, 0);
+		c.insets = new Insets(0, 0, 20, 0);
 		panel.add(counterField, c);
 		
-		c.insets = new Insets(0, 0, 0, 0);
+		c.insets = new Insets(0, 0, 10, 0);
 		c.gridy++;
 		panel.add(maxField, c);
+		
+		c.insets = new Insets(0, 0, 5, 0);
+		c.gridy++;
+		panel.add(start, c);
 		
 		// Labels
 		c.anchor = GridBagConstraints.LINE_END;
 		c.gridx = 1;
 		c.gridwidth = 2;
 		c.gridy = 1;
-		c.insets = new Insets(0, 0, 17, 0);
+		c.insets = new Insets(0, 0, 20, 0);
 		panel.add(new JLabel("Contador: "), c);
 		
-		c.insets = new Insets(0, 0, 0, 0);
+		c.insets = new Insets(0, 0, 10, 0);
 		c.gridx = 2;
 		c.gridwidth = 1;
 		c.gridy++;
@@ -136,9 +151,10 @@ import mars.mips.instructions.BasicInstructionFormat;
 		if (a == lastAddress) return;
 		lastAddress = a;
 		
-		counter++;
-	
-		updateDisplay();
+		if (startFlag) {
+			counter++;
+			updateDisplay();
+		}
 	}
 	
 //	@Override
@@ -154,6 +170,7 @@ import mars.mips.instructions.BasicInstructionFormat;
 		lastAddress = -1;	
 		max = 0;
 		reset = true;
+		startFlag = false;
 		updateDisplay();
 	}
 	
