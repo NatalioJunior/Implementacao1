@@ -17,7 +17,7 @@ import mars.mips.instructions.BasicInstructionFormat;
 
  public class PreemptiveTimer extends AbstractMarsToolAndApplication {
 
-   private static String heading =  "Escalonamento preemptivo com contagem de instruções";
+   private static String heading =  "Escalonamento preemptivo com contagem de instruÃ§Ãµes";
    private static String version = " Version 1.0";
    private static String name = "Preemptive Timer";
    
@@ -129,7 +129,7 @@ import mars.mips.instructions.BasicInstructionFormat;
 		c.gridx = 2;
 		c.gridwidth = 1;
 		c.gridy++;
-		panel.add(new JLabel("Número máximo de instruções: "), c);
+		panel.add(new JLabel("NÃºmero mÃ¡ximo de instruÃ§Ãµes: "), c);
 		
 		return panel;	
    }
