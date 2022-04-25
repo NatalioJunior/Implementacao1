@@ -11,11 +11,10 @@ public class SyscallProcessTerminate extends AbstractSyscall {
 	}
 
 	public void simulate(ProgramStatement statement) throws ProcessingException {
-		
-		int valor = RegisterFile.getValue(2);
-
 		//Remover o processo feito
 		ProcessTable.removeReady(ProcessTable.getIdProcessoAtual());
+		//inicia o próximo processo
+		ProcessTable.setProcessoAtual();
 	}
 
 }

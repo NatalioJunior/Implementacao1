@@ -1,6 +1,5 @@
 package mars.mips.instructions.syscalls;
 
-import mars.mips.SO.ProcessManager.Escalonador;
 import mars.mips.SO.ProcessManager.*;
 import mars.util.*;
 import mars.mips.hardware.*;
@@ -14,10 +13,10 @@ public class SyscallFork extends AbstractSyscall{
 
 	public void simulate(ProgramStatement statement) throws ProcessingException {
 		
-		int id = new Integer(RegisterFile.getValue(4)); //4 é a posição do a0 no vetor de registradores em Register File
+		int address = new Integer(RegisterFile.getValue(4)); //4 ï¿½ a posiï¿½ï¿½o do a0 no vetor de registradores em Register File
 		
 		//Adicionando o novo processo no escalonador e na tabela de processos
-		ProcessTable.incrementReady(id, 1);
+		ProcessTable.incrementReady(address, 0);
 
 	}
     

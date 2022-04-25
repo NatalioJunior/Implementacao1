@@ -14,11 +14,13 @@ public class SyscallProcessChange extends AbstractSyscall{
 		
 		//Ver o processo atual e processa-lo
 		if(ProcessTable.getProcessoAtual() == null) {
-			//se for o primeiro processo só seta
+			//se for o primeiro processo sï¿½ seta
 			ProcessTable.setProcessoAtual();
 		} else {
 			//salva  contexto do processo atual
 			ProcessTable.processExec(ProcessTable.getIdProcessoAtual());
+			//retorna pro fim da fila
+			Scheduler.addProcess(ProcessTable.getProcessoAtual());
 			//seta um novo
 			ProcessTable.setProcessoAtual();
 		}
