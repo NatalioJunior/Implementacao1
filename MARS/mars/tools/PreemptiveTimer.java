@@ -182,7 +182,7 @@ import mars.mips.instructions.BasicInstructionFormat;
 	
 		max = Integer.parseInt(maxField.getText());
 		
-		if (counter == max) {
+		if (counter - 1 == max) {
 			//reinicia o contador
 			counter = 0;
 			

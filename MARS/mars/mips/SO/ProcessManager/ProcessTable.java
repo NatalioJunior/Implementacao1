@@ -2,8 +2,6 @@ package mars.mips.SO.ProcessManager;
 
 import java.util.ArrayList;
 
-import mars.mips.hardware.RegisterFile;
-
 public class ProcessTable {
 	private static ArrayList<PCB> listReady = new ArrayList<>();
 	//private ArrayList<PCB> listExec = new ArrayList<>();
@@ -14,8 +12,7 @@ public class ProcessTable {
 		PCB auxiliar = new PCB(address, processoId, estadoProcesso);
 		listReady.add(auxiliar);
 		processoId++;
-		auxiliar.setEstadoProcesso(0);
-		Escalonador.incrementQueue(auxiliar);
+		Scheduler.addProcess(auxiliar);
 	}
 	
 	/*public void incrementExec (String iniID, int PID, int estadoProcesso) {
@@ -32,12 +29,9 @@ public class ProcessTable {
 	
 	public static void removeReady(int valor) {
 		//Removento da lista de processos prontos
-		//e setando um novo processo em execução
+		//e setando um novo processo em execuï¿½ï¿½o
 		listReady.remove(valor);
-		processoId--;
-		Escalonador.removeQueue();
 		setProcessoAtual();
-		
 	}
 	
 	
@@ -59,15 +53,11 @@ public class ProcessTable {
 
 	public static void setProcessoAtual() {
 		//setar o processo atual como o pico do escalonador
-		processoAtual = Escalonador.peekQueue();
+		processoAtual = Scheduler.nextProcess();
 		processoAtual.setEstadoProcesso(1);
 		
 		//carregar regs
-		for (int i = 0; i < 32; i++) {
-			RegisterFile.updateRegister(i, processoAtual.getRegisFile()[i].getValue());
-		}
-		
-		RegisterFile.setProgramCounter(processoAtual.getIniAD());
+		processoAtual.processRegisters();
 
 	}
 	

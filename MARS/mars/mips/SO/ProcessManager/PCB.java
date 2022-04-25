@@ -2,11 +2,11 @@ package mars.mips.SO.ProcessManager;
 
 import mars.mips.hardware.Register;
 import mars.mips.hardware.RegisterFile;
-import mars.mips.SO.ProcessManager.Escalonador;
 
 public class PCB {
 	public enum estado{ PRONTO, EXECUTANDO, BLOQUEADO };
 	private Register[] regisFile;
+	private Register hi, lo;
 	private int iniAD;
 	private int PID;
 	private int estadoProcesso;
@@ -15,6 +15,8 @@ public class PCB {
 		this.iniAD = iniAD;
 		
 		this.regisFile = RegisterFile.getRegisters();
+		this.hi = new Register("hi", 33, RegisterFile.getValue(33));
+		this.lo = new Register("hi", 34, RegisterFile.getValue(34));
 		
 		this.PID = pID;
 		this.setEstadoProcesso(estadoProcesso);
@@ -25,8 +27,14 @@ public class PCB {
 		return regisFile;
 	}
 	
-	public void updateRegFile (int num) {
-		RegisterFile.updateRegister(num, regisFile[num].getValue());
+	public void processRegisters() {
+		//carrega os registradores do processo para os físicos
+		for (int i = 0; i < 35; i++) {
+			if (i == 32) RegisterFile.setProgramCounter(iniAD);
+			else if (i == 33) RegisterFile.updateRegister(i, hi.getValue());
+			else if (i == 34) RegisterFile.updateRegister(i, lo.getValue());
+			else RegisterFile.updateRegister(i, regisFile[i].getValue());
+		}
 	}
 	
 	public void setRegisFile() {
@@ -35,13 +43,9 @@ public class PCB {
 		}
 	}
 	
-	public void fisicalRegister() {
-		//alterar os rgistradores fisicos para os registradores do processo
+	public static void fisicalRegister() {
+		//reseta os registradores físicos
 		RegisterFile.resetRegisters();
-		
-		for (int i = 0; i < RegisterFile.getRegisters().length; i++) {
-			RegisterFile.updateRegister(i, regisFile[i].getValue());
-		}
 	}
 	
 	public int getIniAD() {
