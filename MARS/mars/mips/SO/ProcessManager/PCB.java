@@ -10,6 +10,7 @@ public class PCB {
 	private int iniAD;
 	private int PID;
 	private int estadoProcesso;
+	private int prioridade;
 	
 	public PCB(int iniAD, int pID, int estadoProcesso) {
 		this.iniAD = iniAD;
@@ -21,6 +22,10 @@ public class PCB {
 		this.PID = pID;
 		this.setEstadoProcesso(estadoProcesso);
 		
+	}
+
+	public PCB(int iniAD){ //usado no escalonamento por prioridade
+		this.iniAD = iniAD;
 	}
 	
 	public Register[] getRegisFile() {
@@ -70,6 +75,14 @@ public class PCB {
 
 	public void setEstadoProcesso(int estadoProcesso) {
 		this.estadoProcesso = estadoProcesso;
+	}
+
+	public int getPrioridade() {
+		return estadoProcesso;
+	}
+
+	public void setPrioridade(int prioridade) {
+		this.prioridade = prioridade;
 	}
 	
 	

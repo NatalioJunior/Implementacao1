@@ -11,7 +11,10 @@ public class Fifo {
 	}
 	
 	public static PCB removeQueue() {
-		return queueProcess.remove();
+		if(queueProcess.size() > 0)
+            return queueProcess.remove();
+            
+        else return new PCB(-1);
 	}
 	
 	public static PCB peekQueue() {

@@ -54,10 +54,14 @@ public class ProcessTable {
 	public static void setProcessoAtual() {
 		//setar o processo atual como o pico do escalonador
 		processoAtual = Scheduler.nextProcess();
-		processoAtual.setEstadoProcesso(1);
+
+		if (processoAtual.getIniAD() == -1) // iniAd será -1 quando a fila/lista estiver vazia
+			PCB.fisicalRegister(); //reseta os registradores
+		else 
+			processoAtual.setEstadoProcesso(1);
 		
-		//carregar regs
-		processoAtual.processRegisters();
+			//carregar regs
+			processoAtual.processRegisters();
 
 	}
 	
