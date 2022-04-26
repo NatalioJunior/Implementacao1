@@ -24,3 +24,7 @@ hs_err_pid*
 replay_pid*
 MARS/mars/mips/instructions/syscalls/SyscallProcessChange.class
 .project
+MARS/mars/mips/instructions/syscalls/SyscallFork.class
+MARS/mars/mips/instructions/syscalls/SyscallProcessChange.class
+MARS/mars/mips/instructions/syscalls/SyscallProcessTerminate.class
+MARS/mars/tools/PreemptiveTimer.class
