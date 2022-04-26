@@ -14,7 +14,7 @@ public class SyscallCreateSemaphore extends AbstractSyscall {
 	public SyscallCreateSemaphore(int value) { // parametro: Inteiro que representa o valor inicial do semaforo
 		super(63, "CreateSemaphore");
 
-    this.initialValue = value;
+    SyscallCreateSemaphore.initialValue = value;
 	}
 
 	@Override
