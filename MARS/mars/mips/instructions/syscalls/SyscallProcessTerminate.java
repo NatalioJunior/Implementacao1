@@ -13,6 +13,8 @@ public class SyscallProcessTerminate extends AbstractSyscall {
 	public void simulate(ProgramStatement statement) throws ProcessingException {
 		//Remover o processo feito
 		ProcessTable.removeReady(ProcessTable.getIdProcessoAtual());
+		
+		PCB.fisicalRegister();
 		//inicia o próximo processo
 		ProcessTable.setProcessoAtual();
 	}
