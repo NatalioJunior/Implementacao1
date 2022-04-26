@@ -9,8 +9,10 @@ public class Scheduler {
         return algorithm;
     }
 
-    public void setAlgorithm(Algorithm a) {
-        algorithm = a;
+    public static void setAlgorithm(String a) {
+    	if(a == "FIFO") algorithm = Algorithm.fifo;
+    	else if (a == "Prioridade") algorithm = Algorithm.priority;
+    	else if (a == "Loteria") algorithm = Algorithm.lottery;
     }
 
     public static void addProcess(PCB process) {
