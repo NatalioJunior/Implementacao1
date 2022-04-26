@@ -8,12 +8,14 @@ public class PCB {
 	private Register[] regisFile;
 	private Register hi, lo;
 	private int iniAD;
+	private int pcAtual; //pro caso de o processo parar no meio
 	private int PID;
 	private int estadoProcesso;
 	private int prioridade;
 	
 	public PCB(int iniAD, int pID, int estadoProcesso) {
 		this.iniAD = iniAD;
+		this.pcAtual = iniAD;
 		
 		this.regisFile = RegisterFile.getRegisters();
 		this.hi = new Register("hi", 33, RegisterFile.getValue(33));
@@ -35,7 +37,7 @@ public class PCB {
 	public void processRegisters() {
 		//carrega os registradores do processo para os físicos
 		for (int i = 0; i < 35; i++) {
-			if (i == 32) RegisterFile.setProgramCounter(iniAD);
+			if (i == 32) RegisterFile.setProgramCounter((iniAD == pcAtual) ? iniAD : pcAtual); //pro caso de o processo parar no meio
 			else if (i == 33) RegisterFile.updateRegister(i, hi.getValue());
 			else if (i == 34) RegisterFile.updateRegister(i, lo.getValue());
 			else RegisterFile.updateRegister(i, regisFile[i].getValue());
@@ -46,6 +48,10 @@ public class PCB {
 		for (int i = 0; i < RegisterFile.getRegisters().length; i++) {
 			regisFile[i].setValue(RegisterFile.getRegisters()[i].getValue());
 		}
+		
+		pcAtual = RegisterFile.getProgramCounter();
+		hi.setValue(RegisterFile.getValue(33));
+		lo.setValue(RegisterFile.getValue(33));
 	}
 	
 	public static void fisicalRegister() {
@@ -59,6 +65,14 @@ public class PCB {
 	
 	public void setIniAD(int iniAD) {
 		this.iniAD = iniAD;
+	}
+	
+	public int getPcAtual() {
+		return pcAtual;
+	}
+	
+	public void setPcAtual(int pcAtual) {
+		this.pcAtual = pcAtual;
 	}
 	
 	public int getPID() {
