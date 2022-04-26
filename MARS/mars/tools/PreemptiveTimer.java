@@ -8,6 +8,7 @@ import java.util.Observable;
 
 import mars.*;
 import mars.mips.SO.ProcessManager.ProcessTable;
+import mars.mips.SO.ProcessManager.Scheduler;
 import mars.mips.hardware.AccessNotice;
 import mars.mips.hardware.AddressErrorException;
 import mars.mips.hardware.Memory;
@@ -17,8 +18,8 @@ import mars.mips.instructions.BasicInstructionFormat;
 
  public class PreemptiveTimer extends AbstractMarsToolAndApplication {
 
-   private static String heading =  "Escalonamento preemptivo com contagem de instruÃ§Ãµes";
-   private static String version = " Version 1.0";
+   private static String heading =  "Escalonamento preemptivo com contagem de instruções";
+   private static String version = "Version 2.0";
    private static String name = "Preemptive Timer";
    
    protected int counter = 0;
@@ -29,6 +30,9 @@ import mars.mips.instructions.BasicInstructionFormat;
    
    private boolean startFlag = false;
    private JButton start;
+   
+   private String[] schedulers = {"FIFO", "Prioridade", "Loteria"};
+   private JComboBox<String> schedulerField;
    
    private boolean reset = false;  
    
@@ -98,20 +102,28 @@ import mars.mips.instructions.BasicInstructionFormat;
 			new ActionListener() {
 		    	public void actionPerformed(ActionEvent e) {
 		        	startFlag = true;
+		        	Scheduler.setAlgorithm((String)schedulerField.getSelectedItem());
 		    	}
 		    });
+		
+		schedulerField = new JComboBox<>(schedulers);
+		schedulerField.setSelectedIndex(0);
 		
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.LINE_START;
 		c.gridheight = c.gridwidth = 1;
 		c.gridx = 3;
 		c.gridy = 1;
-		c.insets = new Insets(0, 0, 20, 0);
+		c.insets = new Insets(0, 0, 30, 0);
 		panel.add(counterField, c);
+		
+		c.insets = new Insets(0, 0, 20, 0);
+		c.gridy++;
+		panel.add(maxField, c);
 		
 		c.insets = new Insets(0, 0, 10, 0);
 		c.gridy++;
-		panel.add(maxField, c);
+		panel.add(schedulerField, c);
 		
 		c.insets = new Insets(0, 0, 5, 0);
 		c.gridy++;
@@ -122,14 +134,20 @@ import mars.mips.instructions.BasicInstructionFormat;
 		c.gridx = 1;
 		c.gridwidth = 2;
 		c.gridy = 1;
-		c.insets = new Insets(0, 0, 20, 0);
+		c.insets = new Insets(0, 0, 30, 0);
 		panel.add(new JLabel("Contador: "), c);
+		
+		c.insets = new Insets(0, 0, 20, 0);
+		c.gridx = 2;
+		c.gridwidth = 1;
+		c.gridy++;
+		panel.add(new JLabel("Número máximo de instruções: "), c);
 		
 		c.insets = new Insets(0, 0, 10, 0);
 		c.gridx = 2;
 		c.gridwidth = 1;
 		c.gridy++;
-		panel.add(new JLabel("NÃºmero mÃ¡ximo de instruÃ§Ãµes: "), c);
+		panel.add(new JLabel("Algoritmo: "), c);
 		
 		return panel;	
    }
