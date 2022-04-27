@@ -13,16 +13,13 @@ public class SemaphoreCreateSyscall extends AbstractSyscall {
 
 	public SemaphoreCreateSyscall() { // parametro: Inteiro que representa o valor inicial do semaforo
 		super(63, "CreateSemaphore");
-
 	}
-
 	@Override
 	public void simulate(ProgramStatement statement) throws ProcessingException {
    if(ProcessTable.getProcessoAtual().getEstadoProcesso() == 2){ // Caso processo esteja em estado 'BLOQUEADO' e adicionado ao semaforo 
      setBlockedList(ProcessTable.getProcessoAtual());
    }
 	}
-
   // getters & setters
   public static int getInitialValue (){
     return initialValue;
@@ -30,7 +27,6 @@ public class SemaphoreCreateSyscall extends AbstractSyscall {
   public static void setInitialValue (int value){
     initialValue = value;
   }
-
   public static ArrayList<PCB> getBlockedList() {
     final ArrayList<PCB> result = new ArrayList<>();
 
@@ -40,7 +36,6 @@ public class SemaphoreCreateSyscall extends AbstractSyscall {
 
     return result;
   }
-
   public void setBlockedList (PCB value){
     blockedList.add(value);
   }
