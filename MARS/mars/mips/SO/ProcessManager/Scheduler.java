@@ -5,8 +5,8 @@ enum Algorithm{fifo, priority, lottery};
 public class Scheduler {
     private static Algorithm algorithm = Algorithm.fifo;
 
-    public Algorithm getAlgorithm(){
-        return algorithm;
+    public static String getAlgorithm(){
+        return algorithm.name();
     }
 
     public static void setAlgorithm(String a) {
@@ -33,3 +33,4 @@ public class Scheduler {
     }
 
 }
+
