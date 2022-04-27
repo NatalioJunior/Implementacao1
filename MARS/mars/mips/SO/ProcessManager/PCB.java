@@ -51,7 +51,7 @@ public class PCB {
 		
 		pcAtual = RegisterFile.getProgramCounter();
 		hi.setValue(RegisterFile.getValue(33));
-		lo.setValue(RegisterFile.getValue(33));
+		lo.setValue(RegisterFile.getValue(34));
 	}
 	
 	public static void fisicalRegister() {
