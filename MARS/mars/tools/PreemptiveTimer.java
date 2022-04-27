@@ -18,6 +18,11 @@ import mars.mips.instructions.BasicInstructionFormat;
 
  public class PreemptiveTimer extends AbstractMarsToolAndApplication {
 
+   /**
+	 * 
+	 */
+   private static final long serialVersionUID = 1L;
+	
    private static String heading =  "Escalonamento preemptivo com contagem de instruções";
    private static String version = "Version 2.0";
    private static String name = "Preemptive Timer";
@@ -36,14 +41,8 @@ import mars.mips.instructions.BasicInstructionFormat;
    
    private boolean reset = false;  
    
-   /**
-    * The last address we saw. We ignore it because the only way for a
-    * program to execute twice the same instruction is to enter an infinite
-    * loop, which is not insteresting in the POV of counting instructions.
-    */
-   protected int lastAddress = -1;
-   
-   
+   //ignora o último endereço porque p/ um programa executar 2 vezes seguidas a mesma instrução ele vai estar em loop infinito
+   protected int lastAddress = -1; 
 	         	
 	/**
 	 * Simple constructor, likely used to run a stand-alone memory reference visualizer.
@@ -205,7 +204,13 @@ import mars.mips.instructions.BasicInstructionFormat;
 			counter = 0;
 			
 			//muda o processo
-			ProcessTable.processExec(ProcessTable.getIdProcessoAtual());
+			if (ProcessTable.getProcessoAtual().getIniAD() != -1) { // sera -1 se a ultima operacao encontrou uma fila/lista vazia
+				//salva  contexto do processo atual
+				ProcessTable.processExec(ProcessTable.getIdProcessoAtual());
+				//retorna pro fim da fila
+				Scheduler.addProcess(ProcessTable.getProcessoAtual());
+			}
+			//seta um novo
 			ProcessTable.setProcessoAtual();
 		} 
 		
