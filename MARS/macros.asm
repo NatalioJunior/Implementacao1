@@ -68,3 +68,26 @@ lw %address, 0($t0)
 la $t0, %var
 sw %address, 0($t0)
 .end_macro 
+
+.macro Fork (%labelStart)
+li $v0, 60
+la $a0, %labelStart
+syscall
+.end_macro
+
+.macro Fork (%labelStart, %labelEnd)
+li $v0, 60
+la $a0, %labelStart
+la $a1, %labelEnd
+syscall
+.end_macro
+
+.macro ProcessTerminate
+li $v0, 62
+syscall
+.end_macro
+
+.macro ProcessChange
+li $v0, 61
+syscall
+.end_macro

@@ -9,8 +9,8 @@ public class ProcessTable {
 	private static int processoId = 0;
 	private static ArrayList<Integer> listIds = new ArrayList<>();
 	
-	public static void incrementReady (int address, int estadoProcesso) {	
-		PCB auxiliar = new PCB(address, processoId, estadoProcesso);
+	public static void incrementReady (int address, int estadoProcesso, int... end) {	
+		PCB auxiliar = new PCB(address, processoId, estadoProcesso, end);
 		listReady.add(processoId, auxiliar);
 		listIds.add(processoId);
 		processoId++;
@@ -32,9 +32,9 @@ public class ProcessTable {
 	public static void removeReady(int valor) {
 		//Removento da lista de processos prontos
 		//e setando um novo processo em execu��o
-		listReady.remove(valor);
+		listReady.remove(processoAtual);
 		listIds.remove(listIds.indexOf(valor));
-		setProcessoAtual();
+		//setProcessoAtual();
 	}
 	
 	
@@ -53,7 +53,7 @@ public class ProcessTable {
 	public static PCB getProcessoAtual() {
 		return processoAtual;
 	}
-
+	
 	public static void setProcessoAtual() {
 		//setar o processo atual como o pico do escalonador
 		processoAtual = Scheduler.nextProcess();
@@ -69,7 +69,7 @@ public class ProcessTable {
 	}
 	
 	public static int getIdProcessoAtual() {
-		return listReady.indexOf(processoAtual);
+		return listReady.get(0).getPID();
 	}
 
 	public static ArrayList<Integer> getListIds() {
