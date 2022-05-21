@@ -15,9 +15,10 @@ public class SyscallFork extends AbstractSyscall{
 		
 		int address = new Integer(RegisterFile.getValue(4)); //4 � a posi��o do a0 no vetor de registradores em Register File
 		int end = new Integer(RegisterFile.getValue(5)); //5 � a posi��o do a1 no vetor de registradores em Register File
+		int priority = new Integer(RegisterFile.getValue(6)); //a2
 		
 		//Adicionando o novo processo no escalonador e na tabela de processos
-		ProcessTable.incrementReady(address, 0, end);
+		ProcessTable.incrementReady(address, 0, priority, end);
 
 	}
     
