@@ -3,7 +3,7 @@ package mars.mips.SO.ProcessManager;
 enum Algorithm{fifo, priority, lottery};
 
 public class Scheduler {
-    private static Algorithm algorithm = Algorithm.fifo;
+    private static Algorithm algorithm = Algorithm.lottery;
 
     public static String getAlgorithm(){
         return algorithm.name();
@@ -18,7 +18,7 @@ public class Scheduler {
     public static void addProcess(PCB process) {
         if (algorithm == Algorithm.fifo)
             Fifo.incrementQueue(process);
-        else if (algorithm == Algorithm.fifo)
+        else if (algorithm == Algorithm.priority)
             Priority.incrementQueue(process);
         //o de loteria usa a lista de prontos
     }

@@ -16,7 +16,7 @@ public class PCB {
 	private int limite_Inferior;	//Registrador de limite inferior da memória do processo
 	private MemoryManager MM;
 	
-	public PCB(int iniAD, int pID, int estadoProcesso, int... endAD) {
+	public PCB(int iniAD, int pID, int estadoProcesso, int priority, int... endAD) {
 		this.iniAD = iniAD;
 		this.pcAtual = iniAD;
 		this.limite_Superior = iniAD;
@@ -28,6 +28,8 @@ public class PCB {
 		
 		this.PID = pID;
 		this.setEstadoProcesso(estadoProcesso);
+		
+		this.prioridade = priority;
 		
 	}
 	
@@ -97,7 +99,7 @@ public class PCB {
 	}
 
 	public int getPrioridade() {
-		return estadoProcesso;
+		return prioridade;
 	}
 
 	public void setPrioridade(int prioridade) {

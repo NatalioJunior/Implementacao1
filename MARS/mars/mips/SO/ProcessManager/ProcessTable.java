@@ -9,8 +9,8 @@ public class ProcessTable {
 	private static int processoId = 0;
 	private static ArrayList<Integer> listIds = new ArrayList<>();
 	
-	public static void incrementReady (int address, int estadoProcesso, int... end) {	
-		PCB auxiliar = new PCB(address, processoId, estadoProcesso, end);
+	public static void incrementReady (int address, int estadoProcesso, int priority, int... end) {	
+		PCB auxiliar = new PCB(address, processoId, estadoProcesso, priority, end);
 		listReady.add(processoId, auxiliar);
 		listIds.add(processoId);
 		processoId++;
