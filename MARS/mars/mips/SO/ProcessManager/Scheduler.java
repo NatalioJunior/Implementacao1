@@ -3,7 +3,7 @@ package mars.mips.SO.ProcessManager;
 enum Algorithm{fifo, priority, lottery};
 
 public class Scheduler {
-    private static Algorithm algorithm = Algorithm.lottery;
+    private static Algorithm algorithm = Algorithm.fifo;
 
     public static String getAlgorithm(){
         return algorithm.name();
