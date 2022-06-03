@@ -20,7 +20,7 @@ public class PCB {
 		this.iniAD = iniAD;
 		this.pcAtual = iniAD;
 		this.limite_Superior = iniAD;
-		this.limite_Inferior = endAD[0] - 1;
+		this.limite_Inferior = endAD[0];
 		
 		this.regisFile = RegisterFile.getRegisters();
 		this.hi = new Register("hi", 33, RegisterFile.getValue(33));
