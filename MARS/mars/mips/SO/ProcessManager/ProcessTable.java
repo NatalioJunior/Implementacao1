@@ -58,14 +58,13 @@ public class ProcessTable {
 		//setar o processo atual como o pico do escalonador
 		processoAtual = Scheduler.nextProcess();
 
-		if (processoAtual.getIniAD() == -1) // iniAd será -1 quando a fila/lista estiver vazia
+		if (processoAtual.getPID() == -1) // será -1 quando a fila/lista estiver vazia
 			PCB.fisicalRegister(); //reseta os registradores
-		else 
+		else {
 			processoAtual.setEstadoProcesso(1);
-		
 			//carregar regs
 			processoAtual.processRegisters();
-
+		}
 	}
 	
 	public static int getIdProcessoAtual() {
