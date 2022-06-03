@@ -14,7 +14,7 @@ public class SyscallExitAcessMemory extends AbstractSyscall{
 
 	@Override
 	public void simulate(ProgramStatement statement) throws ProcessingException{
-		JOptionPane.showMessageDialog(null, "O endereÁo acessado est· fora dos limites de memÛria para o processo em execuÁ„o!", null, 0 );
+		JOptionPane.showMessageDialog(null, "O endere√ßo acessado est√° fora dos limites de mem√≥ria para o processo em execu√ß√£o!", null, 0 );
 		throw new ProcessingException();
 	}
 

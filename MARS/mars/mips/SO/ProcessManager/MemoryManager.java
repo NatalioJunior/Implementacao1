@@ -5,12 +5,14 @@ import mars.ProcessingException;
 import mars.mips.hardware.AddressErrorException;
 import mars.mips.hardware.RegisterFile;
 import mars.mips.instructions.syscalls.SyscallExitAcessMemory;
+import mars.tools.PreemptiveTimer;
 
 public class MemoryManager {
 	private static int tamanho_Pagina_Virtual;
 	private static int maxBlocos;
-	private int pagingMethod;		//Configuração do tipo de algoritmo de substituição de páginas da memória virtual (enum Algorithm)
-	
+	private int pagingMethod;		//Configuraï¿½ï¿½o do tipo de algoritmo de substituiï¿½ï¿½o de pï¿½ginas da memï¿½ria virtual (enum Algorithm)
+	private static int contP = 0;
+
 	public int getTamanho_Pagina_Virtual() {
 		return tamanho_Pagina_Virtual;
 	}
@@ -31,12 +33,20 @@ public class MemoryManager {
 	}
 	
 	public static void acessMemory() throws ProcessingException {
-		if (ProcessTable.getProcessoAtual() != null) {
-			if (RegisterFile.getProgramCounter() < ProcessTable.getProcessoAtual().getLimite_Superior() ||
-					RegisterFile.getProgramCounter() > ProcessTable.getProcessoAtual().getLimite_Inferior()) {
-				try {
-					new SyscallExitAcessMemory().simulate(Globals.memory.getStatement(RegisterFile.getProgramCounter()));
-				} catch (AddressErrorException e) {} 
+		if (ProcessTable.getProcessoAtual() != null && ProcessTable.getProcessoAtual().getPID() != -1) {
+			if(PreemptiveTimer.getPreemptive()) {
+				contP++;
+				if(contP == 2){
+					PreemptiveTimer.setPreemptive();
+					contP = 0;
+				}
+			} else {
+				if (RegisterFile.getProgramCounter() < ProcessTable.getProcessoAtual().getLimite_Superior() ||
+						RegisterFile.getProgramCounter() > ProcessTable.getProcessoAtual().getLimite_Inferior()) {
+					try {
+						new SyscallExitAcessMemory().simulate(Globals.memory.getStatement(RegisterFile.getProgramCounter()));
+					} catch (AddressErrorException e) {} 
+				}
 			}
 		}	
 	}

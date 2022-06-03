@@ -29,7 +29,7 @@ public class Priority {
         else if(queuePriority2.size() > 0)
             return queuePriority2.remove();
             
-        else return new PCB(-1);
+        else return new PCB(-1); //se a fila estiver vazia retorna um processo com pid -1
 	}
 
 }

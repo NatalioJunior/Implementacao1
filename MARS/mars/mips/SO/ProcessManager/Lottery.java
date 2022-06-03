@@ -10,7 +10,7 @@ public class Lottery {
         Random r = new Random();
 
 		return (size > 0) ? ProcessTable.getListReady().get(r.nextInt(size)) : new PCB(-1); 
-        //se a lista estiver vazia retorna um processo com endereço -1
+        //se a lista estiver vazia retorna um processo com pid -1
 	}
 
 }

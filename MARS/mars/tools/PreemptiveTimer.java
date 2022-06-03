@@ -1,6 +1,7 @@
 
 package mars.tools;
 
+import javax.print.attribute.PrintRequestAttribute;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -23,7 +24,7 @@ import mars.mips.instructions.BasicInstructionFormat;
 	 */
    private static final long serialVersionUID = 1L;
 	
-   private static String heading =  "Escalonamento preemptivo com contagem de instruções";
+   private static String heading =  "Escalonamento preemptivo com contagem de instruï¿½ï¿½es";
    private static String version = "Version 2.0";
    private static String name = "Preemptive Timer";
    
@@ -39,9 +40,19 @@ import mars.mips.instructions.BasicInstructionFormat;
    private String[] schedulers = {"FIFO", "Prioridade", "Loteria"};
    private JComboBox<String> schedulerField;
    
-   private boolean reset = false;  
+   private boolean reset = false;
    
-   //ignora o último endereço porque p/ um programa executar 2 vezes seguidas a mesma instrução ele vai estar em loop infinito
+   private static boolean preemptive = false; //serÃ¡ verdadeiro quando estiver ocorrendo uma preempÃ§Ã£o e servirÃ¡ de flag para o memory manager
+
+   public static boolean getPreemptive() {
+	   return preemptive;
+   }
+
+   public static void setPreemptive() {
+	   preemptive = false;
+   }
+   
+   //ignora o ï¿½ltimo endereï¿½o porque p/ um programa executar 2 vezes seguidas a mesma instruï¿½ï¿½o ele vai estar em loop infinito
    protected int lastAddress = -1; 
 	         	
 	/**
@@ -140,7 +151,7 @@ import mars.mips.instructions.BasicInstructionFormat;
 		c.gridx = 2;
 		c.gridwidth = 1;
 		c.gridy++;
-		panel.add(new JLabel("Número máximo de instruções: "), c);
+		panel.add(new JLabel("Numero maximo de instrucoes: "), c);
 		
 		c.insets = new Insets(0, 0, 10, 0);
 		c.gridx = 2;
@@ -204,12 +215,13 @@ import mars.mips.instructions.BasicInstructionFormat;
 			counter = 0;
 			
 			//muda o processo
-			if (ProcessTable.getProcessoAtual().getIniAD() != -1) { // sera -1 se a ultima operacao encontrou uma fila/lista vazia
+			if (ProcessTable.getProcessoAtual().getPID() != -1 && ProcessTable.getProcessoAtual() != null) { // sera -1 se a ultima operacao encontrou uma fila/lista vazia
 				//salva  contexto do processo atual
 				ProcessTable.processExec(ProcessTable.getIdProcessoAtual());
 				//retorna pro fim da fila
 				Scheduler.addProcess(ProcessTable.getProcessoAtual());
 			}
+			preemptive = true;
 			//seta um novo
 			ProcessTable.setProcessoAtual();
 		} 

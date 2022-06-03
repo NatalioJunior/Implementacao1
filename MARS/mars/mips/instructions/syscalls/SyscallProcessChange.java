@@ -17,7 +17,7 @@ public class SyscallProcessChange extends AbstractSyscall{
 			//se for o primeiro processo s� seta
 			ProcessTable.setProcessoAtual();
 		} else {
-			if (ProcessTable.getProcessoAtual().getIniAD() != -1) { // será -1 se a última operação encontrou uma fila/lista vazia
+			if (ProcessTable.getProcessoAtual().getPID() != -1) { // será -1 se a última operação encontrou uma fila/lista vazia
 				//salva  contexto do processo atual
 				ProcessTable.processExec(ProcessTable.getIdProcessoAtual());
 				//retorna pro fim da fila

@@ -14,7 +14,7 @@ public class Fifo {
 		if(queueProcess.size() > 0)
             return queueProcess.remove();
             
-        else return new PCB(-1);
+        else return new PCB(-1); //se a fila estiver vazia retorna um processo com pid -1
 	}
 	
 	public static PCB peekQueue() {
