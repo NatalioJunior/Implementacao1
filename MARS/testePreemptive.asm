@@ -3,9 +3,9 @@
 .text             
 	#criacao dos processos
 	
-	SyscallFork(Programa2)
-	SyscallFork(Programa1)
-	SyscallFork(Idle)
+	SyscallFork(Programa2, Idle)
+	SyscallFork(Programa1, Programa2)
+	SyscallFork(Idle, Programa1)
 
 	#escalonando o primeiro processo
 	SyscallProcessChange

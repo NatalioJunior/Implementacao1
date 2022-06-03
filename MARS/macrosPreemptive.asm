@@ -1,6 +1,7 @@
-.macro SyscallFork(%address)
+.macro SyscallFork(%address, %limit)
 	li $v0, 60
 	la $a0, %address
+	la $a1, %limit
 	syscall
 .end_macro
 
