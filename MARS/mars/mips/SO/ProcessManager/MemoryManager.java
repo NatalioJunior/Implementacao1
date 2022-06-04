@@ -34,6 +34,10 @@ public class MemoryManager {
 	
 	public static void acessMemory() throws ProcessingException {
 		if (ProcessTable.getProcessoAtual() != null && ProcessTable.getProcessoAtual().getPID() != -1) {
+			//depuracao
+			//System.out.println("PC: " + RegisterFile.getProgramCounter());
+			//System.out.println("iniAD: " + ProcessTable.getProcessoAtual().getIniAD());
+			//System.out.println("pcAtual: " + ProcessTable.getProcessoAtual().getPcAtual() + "\n");
 			if(PreemptiveTimer.getPreemptive()) {
 				contP++;
 				if(contP == 2){

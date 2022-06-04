@@ -2,6 +2,7 @@ package mars.mips.SO.ProcessManager;
 
 import mars.mips.hardware.Register;
 import mars.mips.hardware.RegisterFile;
+import mars.tools.PreemptiveTimer;
 
 public class PCB {
 	public enum estado{ PRONTO, EXECUTANDO, BLOQUEADO };
@@ -44,8 +45,12 @@ public class PCB {
 	public void processRegisters() {
 		//carrega os registradores do processo para os físicos
 		for (int i = 0; i < 35; i++) {
-			if (i == 32) RegisterFile.setProgramCounter((iniAD == pcAtual) ? iniAD : pcAtual); //pro caso de o processo parar no meio
-			else if (i == 33) RegisterFile.updateRegister(i, hi.getValue());
+			if (i == 32) {
+				int ad = (iniAD == pcAtual) ? iniAD : pcAtual;
+				if(PreemptiveTimer.getStart()) ad = ad - 4; //ajuste do PC no $pc escalonamento preemptivo
+
+				RegisterFile.setProgramCounter(ad); //pro caso de o processo parar no meio
+			} else if (i == 33) RegisterFile.updateRegister(i, hi.getValue());
 			else if (i == 34) RegisterFile.updateRegister(i, lo.getValue());
 			else RegisterFile.updateRegister(i, regisFile[i].getValue());
 		}

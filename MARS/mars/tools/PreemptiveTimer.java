@@ -34,7 +34,12 @@ import mars.mips.instructions.BasicInstructionFormat;
    protected int max = 0;
    private JTextField maxField;
    
-   private boolean startFlag = false;
+   private static boolean startFlag = false;
+
+   	public static boolean getStart() {
+	return startFlag;
+	}
+   
    private JButton start;
    
    private String[] schedulers = {"FIFO", "Prioridade", "Loteria"};
